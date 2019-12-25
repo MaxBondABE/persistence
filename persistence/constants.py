@@ -6,3 +6,5 @@ SINGLE_DIGIT_COMPOSITE_FACTORS = {
     8: (2, 2, 2),
     9: (3, 3)
 }
+# Should be in ascending order for consistency with output of persistence.core.normalize()
+# Makes testing easier.
