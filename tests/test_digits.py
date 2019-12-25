@@ -3,8 +3,6 @@ from tests.constants import BAD_TYPES
 
 from persistence.core import digits
 
-print (BAD_TYPES + ((1, )))
-
 # digits() does not accept tuples, unlike other functions
 @pytest.mark.parametrize("testcase", BAD_TYPES + ((1, ), ))
 def test_digits_rejects_bad_types(testcase):
