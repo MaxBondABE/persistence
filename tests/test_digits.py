@@ -23,3 +23,7 @@ examples = {
 @pytest.mark.parametrize("testcase, expected", examples.items())
 def test_digits_correctly_processes_input(testcase, expected):
     assert digits(testcase) == expected
+
+def test_digits_returns_correct_type():
+    assert isinstance(digits(1), tuple)
+    assert isinstance(digits(1)[0], int)
