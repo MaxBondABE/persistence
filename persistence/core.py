@@ -4,7 +4,13 @@ def digits(n):
 
     n must be a positive integer.
     """
-    pass
+    if __debug__:
+        if not isinstance(n, int) or isinstance(n, bool):
+            raise TypeError("n must be a postitive integer, not {}.".format(type(n)))
+        elif n < 0:
+            raise ValueError("n must be positive ({} < 0).".format(n))
+
+    return tuple(map(int, str(n)))
 
 def normalize(n):
     """
