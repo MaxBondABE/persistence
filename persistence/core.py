@@ -48,6 +48,7 @@ def digits(n):
 
     return tuple(map(int, str(n)))
 
+@acceptsNumber
 def normalize(n):
     """
     Converts a number into it's simplest form with the same multiplicative persistence by:
@@ -59,7 +60,26 @@ def normalize(n):
     n must be a positive integer that contains at least 1 digit which is not 0 or 1,
     or a list or tuple of digits with the same constraint.
     """
-    pass
+    if __debug__:
+        if 0 in n:
+            raise ValueError("n must not contain the digit 0.")
+        if n.count(1) == len(n):
+            raise ValueError("n must contain digits other than 1.")
+
+    return tuple(sorted(
+        reduce(
+            lambda a, b: a+b,
+            map(
+                lambda d:
+                    (d, ) if not d in SINGLE_DIGIT_COMPOSITE_FACTORS else \
+                    SINGLE_DIGIT_COMPOSITE_FACTORS[d],
+                filter(
+                    lambda d: d != 1, 
+                    n
+                ) 
+            )
+        )
+    ))
 
 def enumerateDigits(n):
     """
@@ -72,3 +92,4 @@ def enumerateDigits(n):
     or a list or tuple of digits with the same constraint.
     """
     pass
+
