@@ -1,3 +1,39 @@
+from persistence.constants import SINGLE_DIGIT_COMPOSITE_FACTORS
+
+from functools import reduce, wraps
+
+def acceptsNumber(f):
+    """
+    Decorator which handles incoming numbers. If the number is an integer, it is converted to a
+    tuple of digits.
+
+    Accepts positive integers or typles of digits (integers between 0 and 9).
+    """
+
+    @wraps(f)
+    def wrapped(n, *args, **kwargs):
+
+        if __debug__:
+            if isinstance(n, tuple):
+                for d in n:
+                    if not isinstance(d, int) or isinstance(d, bool):
+                    # isinstance(True, int) == True
+                        raise TypeError("n must contain only integers.")
+                    elif d < 0:
+                        raise ValueError("n must not contain negative numbers.")
+                    elif d > 9:
+                        raise ValueError("n must not contain digits greater than 9.")
+            elif isinstance(n, int) and n < 0:
+                raise ValueError("n must be a positive integer.")
+            elif not isinstance(n, int) or isinstance(n, bool):
+                raise TypeError("n must either be a positive integer or a tuple of digit values.")
+
+        if isinstance(n, int):
+            n = digits(n)
+        return f(n, *args, **kwargs)
+
+    return wrapped
+
 def digits(n):
     """
     Converts a number into a tuple of it's base 10 digits.
