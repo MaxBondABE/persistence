@@ -90,5 +90,27 @@ def compositeCombinations(n):
     n must be a positive integer that contains at least 1 digit which is not 0 or 1,
     or a list or tuple of digits with the same constraint.
     """
-    pass
 
+    n = normalize(n)
+    paths = set([tuple()])
+    queue = [(n, tuple())]
+
+    yield n
+    while queue:
+        number, path = queue.pop()
+        for composite, factors in SINGLE_DIGIT_COMPOSITE_FACTORS.items():
+            if not False in [
+                factors.count(prime) <= number.count(prime)
+                for prime in factors
+            ]:
+                newPath = tuple(sorted(path + (composite, )))
+                if not newPath in paths:
+                    newNumber = list(number)
+                    newNumber.append(composite)
+                    for prime in factors:
+                        newNumber.remove(prime)
+                    newNumber = tuple(newNumber)
+
+                    paths.add(newPath)
+                    queue.append((newNumber, newPath))
+                    yield newNumber
