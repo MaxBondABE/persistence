@@ -30,7 +30,12 @@ examples = {
 }
 @pytest.mark.parametrize("testcase, expected", examples.items())
 def test_enum_digits_properly_processes_input(testcase, expected):
-    actual = tuple(enumerateDigits(testcase))
+    actual = tuple(
+        map(
+            lambda a: tuple(sorted(a)), # Order of digits is not specified
+            enumerateDigits(testcase)
+        )
+    )
     assert set(actual) == set(expected)
     # Compare using sets because the particular order is not specified
     assert len(actual) == len(expected)
