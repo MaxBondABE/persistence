@@ -1,7 +1,7 @@
 import pytest
 from tests.constants import BAD_TYPES
 
-from persistence.core import enumerateDigits
+from persistence.core import compositeCombinations
 
 examples = {
     2: ((2,), ),
@@ -29,11 +29,11 @@ examples = {
     )
 }
 @pytest.mark.parametrize("testcase, expected", examples.items())
-def test_enum_digits_properly_processes_input(testcase, expected):
+def test_composite_combinations_properly_processes_input(testcase, expected):
     actual = tuple(
         map(
             lambda a: tuple(sorted(a)), # Order of digits is not specified
-            enumerateDigits(testcase)
+            compositeCombinations(testcase)
         )
     )
     assert set(actual) == set(expected)

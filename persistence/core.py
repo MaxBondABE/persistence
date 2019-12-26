@@ -81,11 +81,10 @@ def normalize(n):
         )
     ))
 
-def enumerateDigits(n):
+def compositeCombinations(n):
     """
-    Finds numbers with the same multiplicative persistence as n by normalizing n,
-    and then finding all of the ways it can group the prime digits into composite
-    digits.
+    Finds all possible combinations of the digits of n by normalizing n into prime
+    digits, and then combining them into composite digits.
 
     Yields tuples.
     n must be a positive integer that contains at least 1 digit which is not 0 or 1,
