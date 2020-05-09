@@ -1,6 +1,7 @@
 from persistence.constants import SINGLE_DIGIT_COMPOSITE_FACTORS
 
 from functools import reduce, wraps
+from sympy.utilities.iterables import multiset_permutations
 
 def acceptsNumber(f):
     """
@@ -47,6 +48,19 @@ def digits(n):
             raise ValueError("n must be positive ({} < 0).".format(n))
 
     return tuple(map(int, str(n)))
+
+def digitsToInt(n):
+    """
+    Converts a tuple of digits into an integer.
+
+    n must be a tuple of integers between 0 and 9. Note that zeroes at the beginning
+    will not have an effect on the output (01 = 1).
+    """
+    return sum(map(
+        lambda d: d[0] * 10**d[1],
+        zip(n, range(len(n)-1, -1, -1)
+    )))
+        
 
 @acceptsNumber
 def normalize(n):
@@ -99,6 +113,7 @@ def compositeCombinations(n):
     while queue:
         number, path = queue.pop()
         for composite, factors in SINGLE_DIGIT_COMPOSITE_FACTORS.items():
+ 
             if not False in [
                 factors.count(prime) <= number.count(prime)
                 for prime in factors
@@ -114,3 +129,31 @@ def compositeCombinations(n):
                     paths.add(newPath)
                     queue.append((newNumber, newPath))
                     yield newNumber
+
+def reachable(n):
+    pass
+
+def equivalentPermutations(n):
+    """
+    Yields each possible number that can be obtained by combining & rearranging digits of n.
+    Numbers obtained in this way are equivalent in that they have the same multiplicative persistence.
+    """
+    return None
+
+def previous(n):
+    """
+    Finds a number which comes before n in a a sequence resulting from multiplicative persistence. If
+    no such number exists, returns None. Otherwise, returns an integer.
+
+    Every number resulting from multiplying all of the base 10 digits of a number together will have only
+    single-digit prime factors. Conversely, for every number who's only prime factors are the single digit
+    primes (though they may be a factor more than once), there exist numbers which, when their digits are
+    multiplied, will result in that number. (For instance, you can take all of those prime factors & concatenate
+    them together.)
+    """
+    return None
+
+def persistence(n):
+    """
+    """
+    return None
