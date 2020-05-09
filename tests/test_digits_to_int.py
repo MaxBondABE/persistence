@@ -11,4 +11,4 @@ examples = {
 }
 @pytest.mark.parametrize("testcase, expected", examples.items())
 def test_digts_to_int_properly_processes_input(testcase, expected):
-    assert digitsToInt(testcase) is expected
+    assert digitsToInt(testcase) == expected
