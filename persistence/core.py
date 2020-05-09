@@ -1,4 +1,4 @@
-from persistence.constants import SINGLE_DIGIT_COMPOSITE_FACTORS
+from persistence.constants import SINGLE_DIGIT_COMPOSITE_FACTORS, SINGLE_DIGIT_PRIMES
 
 from functools import reduce, wraps
 from sympy.utilities.iterables import multiset_permutations
@@ -140,7 +140,15 @@ def reachable(n):
     and either the tuple of digits which will reach n or None.
     """
 
-    pass
+    if isinstance(n, tuple): n = digitsToInt(n)
+
+    output = []
+    for digit in SINGLE_DIGIT_PRIMES:
+        while n % digit == 0:
+            output.append(digit)
+            n /= digit
+
+    return (n == 1, tuple(output) if n == 1 else None)
 
 def equivalentPermutations(n):
     """
