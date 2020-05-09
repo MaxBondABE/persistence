@@ -131,6 +131,15 @@ def compositeCombinations(n):
                     yield newNumber
 
 def reachable(n):
+    """
+    Attempts to factor n using only the prime numbered digits.
+
+    Accepts a number n as either an integer or tuple of digits.
+
+    Returns a tuple containing a boolean indicating the n's reachability,
+    and either the tuple of digits which will reach n or None.
+    """
+
     pass
 
 def equivalentPermutations(n):
