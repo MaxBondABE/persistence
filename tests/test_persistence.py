@@ -20,6 +20,7 @@ def test_order_of_digits_does_not_change_persistence(testcase):
 @given(digit_tuples)
 def test_1_digits_do_not_change_persistence(testcase):
     assume(1 in testcase)
+    assume(any(map(lambda d: d != 1, testcase)))
     assert persistence(testcase) == persistence(tuple(filter(
         lambda d: d != 1,
         testcase
