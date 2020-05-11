@@ -170,7 +170,17 @@ def previous(n):
     """
     return None
 
+@acceptsNumber
 def persistence(n):
     """
+    Returns the base 10 multiplicative persistence of a number.
+
+    Accepts either an integer or a tuple of digits.
     """
-    return None
+    _multiplyDigits = lambda: digits(reduce(lambda a, b: a*b, n))
+    n = _multiplyDigits()
+    p = 1
+    while len(n) > 1:
+        n = _multiplyDigits()
+        p += 1
+    return p
