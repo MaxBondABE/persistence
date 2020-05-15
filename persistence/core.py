@@ -113,11 +113,10 @@ def compositeCombinations(n):
     while queue:
         number, path = queue.pop()
         for composite, factors in SINGLE_DIGIT_COMPOSITE_FACTORS.items():
- 
-            if not False in [
+            if all(
                 factors.count(prime) <= number.count(prime)
                 for prime in factors
-            ]:
+            ): # Tests that number contains all of the required factors
                 newPath = tuple(sorted(path + (composite, )))
                 if not newPath in paths:
                     newNumber = list(number)
