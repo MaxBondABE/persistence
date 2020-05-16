@@ -1,4 +1,5 @@
 from persistence.constants import SINGLE_DIGIT_COMPOSITE_FACTORS, SINGLE_DIGIT_PRIMES
+from persistence.util import prod
 
 from functools import reduce, wraps
 from sympy.utilities.iterables import multiset_permutations
@@ -175,7 +176,7 @@ def persistence(n):
 
     Accepts either an integer or a tuple of digits.
     """
-    _multiplyDigits = lambda: digits(reduce(lambda a, b: a*b, n))
+    _multiplyDigits = lambda: digits(prod(n))
     n = _multiplyDigits()
     p = 1
     while len(n) > 1:
