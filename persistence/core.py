@@ -59,6 +59,8 @@ def digitsToInt(n):
     return sum(map(
         lambda d: d[0] * 10**d[1],
         zip(n, range(len(n)-1, -1, -1)
+        # Zip together each digit with the power of it's (eg 0 for 1s place, 1
+        # for 10s place, etc)
     )))
         
 
