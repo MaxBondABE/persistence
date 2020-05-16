@@ -74,20 +74,17 @@ def normalize(n):
     n must be a positive integer that contains at least 1 digit which is not 0 or 1,
     or a list or tuple of digits with the same constraint.
     """
-    if __debug__:
-        if 0 in n:
-            raise ValueError("n must not contain the digit 0.")
-        if n.count(1) == len(n):
-            raise ValueError("n must contain digits other than 1.")
 
     return tuple(sorted(
         reduce(
-            lambda a, b: a+b,
+            lambda a, b: a+b, # Concatenate together tuples returned by map()
             map(
+                # Expand composite digits into prime factors
                 lambda d:
                     (d, ) if not d in SINGLE_DIGIT_COMPOSITE_FACTORS else \
                     SINGLE_DIGIT_COMPOSITE_FACTORS[d],
                 filter(
+                    # Remove 1s
                     lambda d: d != 1, 
                     n
                 ) 
