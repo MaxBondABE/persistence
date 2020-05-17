@@ -78,6 +78,17 @@ def normalize(n):
     or a list or tuple of digits with the same constraint.
     """
 
+    if 0 in n:
+        return (0,)
+    n = tuple(filter(
+        # Remove 1s
+        lambda d: d != 1,
+        n
+    ))
+    if not n:
+        # n contained all 1s
+        return (0, )
+
     return tuple(sorted(
         reduce(
             lambda a, b: a+b, # Concatenate together tuples returned by map()
@@ -86,11 +97,7 @@ def normalize(n):
                 lambda d:
                     (d, ) if not d in SINGLE_DIGIT_COMPOSITE_FACTORS else \
                     SINGLE_DIGIT_COMPOSITE_FACTORS[d],
-                filter(
-                    # Remove 1s
-                    lambda d: d != 1, 
-                    n
-                ) 
+                n
             )
         )
     ))
